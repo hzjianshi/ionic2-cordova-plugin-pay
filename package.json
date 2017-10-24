@@ -1,7 +1,7 @@
 {
     "version": "0.0.1",
     "name": "ionic2-cordova-plugin-pay",
-    "cordova_name": "cordova Basic Mobile Payment Plugin",
+    "cordova_name": "cordova Alipay & WechatPay Plugin",
     "description": "支付宝、微信支付Cordova插件",
     "license": "MIT license",
     "repo": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay",
