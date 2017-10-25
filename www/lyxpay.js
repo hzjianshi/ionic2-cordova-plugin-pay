@@ -6,18 +6,13 @@ var
 var Pay = function() {
 };
 
-Pay.pay = function(pay_type,pay_param) {
+Pay.pay = function(pay_type,pay_param,pay_callbacks) {
     exec(function () {
-        alert("success");
+        pay_callbacks.success();
     }, function (error_essage) {
-        alert(error_essage)
+        pay_callbacks.failure();
     }, "Lyxpay", "pay", [pay_type,pay_param]);
 };
 
-/*
- Keyboard.styleDark = function(dark) {
- exec(null, null, "Keyboard", "styleDark", [dark]);
- };
- */
 
 module.exports = Pay;
