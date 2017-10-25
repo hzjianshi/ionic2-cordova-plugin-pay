@@ -5,7 +5,9 @@
         version="1.0.0">
     <name>lyxpay</name>
 
-
+    <preference name="WX_APP_ID"/>
+    <preference name="ALIPAY_APP_ID"/>
+        
     <!-- android -->
     <platform name="android">
         <js-module src="www/android/lyxpay.js" name="lyxpay">
