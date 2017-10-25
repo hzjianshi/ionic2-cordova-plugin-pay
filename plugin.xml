@@ -4,7 +4,12 @@
         id="lyxpay"
         version="1.0.0">
     <name>lyxpay</name>
-
+<license>MIT license</license>
+  <description>阿里支付移动支付Cordova插件</description>
+  <keywords>cordova alipay 支付宝 微信支付 wechatpay</keywords>
+  <repo>https://github.com/hzjianshi/ionic2-cordova-plugin-pay</repo>
+  <issue>https://github.com/hzjianshi/ionic2-cordova-plugin-pay/issues</issue>
+        
     <preference name="WX_APP_ID"/>
     <preference name="ALIPAY_APP_ID"/>
         
