@@ -9,7 +9,8 @@
     "keywords": [
         "alipay",
         "微信支付",
-	"支付宝"
+	"支付宝",
+	    "wechatpay"
     ],
     "platforms": [
         "android",
