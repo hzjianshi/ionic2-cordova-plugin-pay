@@ -60,9 +60,11 @@
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             [self sendResp:resultDic];
         }];
+    }else if([url.scheme rangeOfString:self.wxAppId].length > 0){
+        [WXApi handleOpenURL:url delegate:self];
     }
 }
-
+// 支付宝回调
 - (void)sendResp:(NSDictionary *)resultDic{
     CDVPluginResult* pluginResult = nil;
     if ([resultDic[@"resultStatus"] integerValue] == 9000) {
@@ -70,13 +72,13 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
         //失败
-        NSLog(@"failed");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[resultDic[@"resultStatus"] stringValue]];
+        NSString *code = [NSString stringWithFormat:@"%d",[resultDic[@"resultStatus"] integerValue]];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:code];
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.tempCommand.callbackId];
 }
-
+// 微信回调
 - (void)onResp:(BaseResp *)resp {
     CDVPluginResult* pluginResult = nil;
     if ([resp isKindOfClass:[PayResp class]]){
@@ -93,9 +95,7 @@
                 break;
         }
     }
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.tempCommand .callbackId];
-    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.tempCommand.callbackId];
 }
 
 @end
-
