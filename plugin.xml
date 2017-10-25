@@ -11,12 +11,13 @@
   <preference name="WX_APP_ID"/>
   <preference name="ALIPAY_APP_ID"/>
   
-  <!-- android -->
-  <platform name="android">
-    <js-module src="www/android/lyxpay.js" name="lyxpay">
+    <js-module src="www/lyxpay.js" name="lyxpay">
       <runs/>
       <clobbers target="lyxpay"/>
     </js-module>
+  
+  <!-- android -->
+  <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="Lyxpay">
         <param name="android-package" value="com.lyx.pay.PayFactory"/>
@@ -52,10 +53,6 @@
   
   <!-- ios -->
   <platform name="ios">
-    <js-module src="www/ios/lyxpay.js" name="lyxpay">
-      <runs/>
-      <clobbers target="lyxpay"/>
-    </js-module>
     <config-file target="config.xml" parent="/*">
       <feature name="Lyxpay">
         <param name="ios-package" value="Lyxpay"/>
