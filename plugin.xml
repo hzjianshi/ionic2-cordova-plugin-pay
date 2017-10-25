@@ -68,6 +68,8 @@
                 <param name="ios-package" value="Lyxpay"/>
                 <param name="onload" value="true"/>
             </feature>
+            <preference name="WX_APP_ID" value="$WX_APP_ID" />
+            <preference name="ALIPAY_APP_ID" value="$ALIPAY_APP_ID" />
         </config-file>
 
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
@@ -77,7 +79,7 @@
                     <string>weixin</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>wx4fd357e3019b6cd2</string>
+                        <string>wx$WX_APP_ID</string>
                     </array>
                 </dict>
                 <dict>
@@ -85,7 +87,7 @@
                     <string>ali</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>alisdkWeiNi</string>
+                        <string>alipay$ALIPAY_APP_ID</string>
                     </array>
                 </dict>
             </array>
