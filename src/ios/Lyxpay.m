@@ -7,7 +7,6 @@
 //
 
 #import "Lyxpay.h"
-//#import "ZXWeniPay.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 
@@ -28,54 +27,18 @@
 - (void)pay : (CDVInvokedUrlCommand *)command
 {
     self.tempCommand = command;
-    //type  1是支付宝 2是微信
-    //param
-    
-    //    [self.commandDelegate runInBackground:^{
-    //
-    //
-    //        [[AlipaySDK defaultService] payOrder:@"" fromScheme:@"" callback:^(NSDictionary *resultDic) {
-    //             NSLog(@"reslut = %@",resultDic);
-    //
-    //            CDVPluginResult * pluginResult = nil;
-    //
-    //            pluginResult =[CDVPluginResult resultWithStatus : CDVCommandStatus_OK messageAsString : @""];
-    //
-    //            [self.commandDelegate sendPluginResult : pluginResult callbackId : command.callbackId];
-    //
-    //
-    //        }];
-    //    }];
-    
-    
-    //    CDVPluginResult* pluginResult = nil;
-    //    NSString* myarg = [command.arguments objectAtIndex:0];
-    
-    //    if (myarg != nil) {
-    //        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    //    } else {
-    //        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Arg was null"];
-    //    }
-    //    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    
     NSInteger type = [command.arguments[0] integerValue];
-    //    self.commandDelegate
-    //    ZXWeniPay *pay = [[ZXWeniPay alloc] init];
-    if (type == 1) {
+    if (type == 2) {
         //支付宝
-        //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
         NSMutableString * appScheme = [NSMutableString string];
         [appScheme appendFormat:@"alipay%@", self.alipayAppId];
         [[AlipaySDK defaultService] payOrder:command.arguments[1] fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             [self sendResp:resultDic];
         }];
-        
-        
-        //        [pay aliPay:command.arguments[1]];
-    } else if (type == 2) {
+    } else if (type == 1) {
         //微信
         //注册微信支付appid
-        [WXApi registerApp:command.arguments[1][@"appid"]];
+        [WXApi registerApp:self.wxAppId];
         
         PayReq *request = [[PayReq alloc] init];
         request.partnerId = command.arguments[1][@"partnerid"];
@@ -85,11 +48,7 @@
         request.timeStamp = [command.arguments[1][@"timestamp"] intValue];
         request.sign = command.arguments[1][@"sign"];
         [WXApi sendReq:request];
-        //        [pay wxPay:command.arguments[1]];
-        
     }
-    
-    
 }
 
 - (void)handleOpenURL:(NSNotification *)notification
@@ -112,7 +71,7 @@
     } else {
         //失败
         NSLog(@"failed");
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@""];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[resultDic[@"resultStatus"] stringValue]];
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.tempCommand.callbackId];
