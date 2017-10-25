@@ -13,9 +13,18 @@
 
 @interface Lyxpay () 
 @property (nonatomic, strong) CDVInvokedUrlCommand *tempCommand;
+@property(nonatomic,strong)NSString *wxAppId;
+@property(nonatomic,strong)NSString *alipayAppId;
 @end
 
 @implementation Lyxpay
+    
+ -(void)pluginInitialize
+{
+    self.wxAppId = [[self.commandDelegate settings] objectForKey:@"WX_APP_ID"];
+    self.alipayAppId = [[self.commandDelegate settings] objectForKey:@"ALIPAY_APP_ID"];
+}
+
 - (void)pay : (CDVInvokedUrlCommand *)command
 {
     self.tempCommand = command;
@@ -55,7 +64,8 @@
     if (type == 1) {
         //支付宝
         //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-        NSString *appScheme = @"alisdkWeiNi";
+        NSMutableString * appScheme = [NSMutableString string];
+        [schema appendFormat:@"alipay%@", self.alipayAppId];
         [[AlipaySDK defaultService] payOrder:command.arguments[1] fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             CDVPluginResult* pluginResult = nil;
             if ([resultDic[@"resultStatus"] integerValue] == 9000) {
@@ -92,6 +102,19 @@
     }
     
     
+}
+
+- (void)handleOpenURL:(NSNotification *)notification
+{
+    NSURL* url = [notification object];
+    
+    if ([url.scheme rangeOfString:self.appId].length > 0)
+    {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+           NSLog(@"reslut = %@",resultDic);
+        }];
+    }
 }
 
 - (void)onResp:(BaseResp *)resp {
