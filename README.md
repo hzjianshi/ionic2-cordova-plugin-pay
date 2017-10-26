@@ -1,28 +1,5 @@
 ### cordova-plugin-pay
 
-> 其实是给ionic2做的插件，未经过cordova测试，需要将ionic-native替换成我的源，等做完再详细写
-
-### 说明
-由于项目问题,该插件暂时停止维护,虽然大部分功能可用,但是,还没有将配置集成到配置文件中,也还没经过完整的项目测试,目前只能算是demo 性的插件,如有需要,可以自行进行改造。之后重新着手`cordova`相关开发之后,会再次开始该插件开发和维护。
-
-
-
-#### 调用示例
-
-- 引入LyxPay： `import {StatusBar, Lyxpay,PayCallBack} from 'ionic-native';`
-- 继承 `PayCallBack`接口，重写`success`和`failure`方法
-
-```
-class CallBack implements PayCallBack{
-  success(): any {
-    alert("success");
-  }
-
-  failure(msg: string): any {
-    alert(msg);
-  }
-
-}
 ```
 * 修改`CDVAppDelegate.m` 新增下面的方法 
 ```
