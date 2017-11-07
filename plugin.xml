@@ -59,6 +59,13 @@
       <preference name="WX_APP_ID" value="$WX_APP_ID" />
       <preference name="ALIPAY_APP_ID" value="$ALIPAY_APP_ID" />
     </config-file>
+    <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+      <array>
+        <string>alipay</string>
+        <string>weixin</string>
+        <string>wechat</string>
+      </array>
+    </config-file>
     <config-file target="*-Info.plist" parent="CFBundleURLTypes">
       <array>
         <dict>
