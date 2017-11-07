@@ -55,7 +55,7 @@ module.exports = function (context) {
 
         // sync the content
         targetFiles.forEach(function (f) {
-            fs.readFile(path.join(context.opts.plugin.dir, 'src', 'android', f), {encoding: 'utf-8'}, function (err, data) {
+            fs.readFile(path.join(context.opts.plugin.dir, 'src', 'android', 'wx' , f), {encoding: 'utf-8'}, function (err, data) {
                 if (err) {
                     throw err;
                 }
