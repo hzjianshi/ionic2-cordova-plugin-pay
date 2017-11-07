@@ -1,4 +1,4 @@
-package com.jianshi.shengqianbao.wxapi;
+package __PACKAGE_NAME__;
 
 import android.content.Intent;
 import android.os.Bundle;
