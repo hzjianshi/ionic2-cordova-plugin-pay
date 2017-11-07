@@ -4,25 +4,29 @@
         version="1.0.0">
   <name>lyxpay</name>
   <license>MIT license</license>
-  <description>阿里支付移动支付Cordova插件</description>
+  <description>支付宝&微信支付Cordova插件</description>
   <keywords>cordova alipay 支付宝 微信支付 wechatpay</keywords>
   <repo>https://github.com/hzjianshi/ionic2-cordova-plugin-pay</repo>
   <issue>https://github.com/hzjianshi/ionic2-cordova-plugin-pay/issues</issue>
   <preference name="WX_APP_ID"/>
   <preference name="ALIPAY_APP_ID"/>
-  
-    <js-module src="www/lyxpay.js" name="lyxpay">
-      <runs/>
-      <clobbers target="lyxpay"/>
-    </js-module>
+  <js-module src="www/lyxpay.js" name="lyxpay">
+    <runs/>
+    <clobbers target="lyxpay"/>
+  </js-module>
   
   <!-- android -->
   <platform name="android">
+    <hook type="after_plugin_add" src="scripts/android-install.js" />
+    <hook type="after_plugin_install" src="scripts/android-install.js" />
+    <hook type="before_plugin_rm" src="scripts/android-install.js" />
+    <hook type="before_plugin_uninstall" src="scripts/android-install.js" />
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="Lyxpay">
         <param name="android-package" value="com.lyx.pay.PayFactory"/>
-        <param name="onload" value="true"/>
       </feature>
+      <preference name="WX_APP_ID" value="$WX_APP_ID" />
+      <preference name="ALIPAY_APP_ID" value="$ALIPAY_APP_ID" />
     </config-file>
     <source-file src="src/android/PayFactory.java" target-dir="src/com/lyx/pay"/>
     <source-file src="src/android/Pay.java" target-dir="src/com/lyx/pay"/>
@@ -44,10 +48,7 @@
       <receiver android:name="com.lyx.pay.wx.AppRegister">
         <intent-filter> <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP"/> </intent-filter>
       </receiver>
-      <activity
-                    android:name=".wxapi.WXPayEntryActivity"
-                    android:exported="true"
-                    android:screenOrientation="portrait"/>
+      <activity android:name=".wxapi.WXPayEntryActivity" android:exported="true" android:screenOrientation="portrait"/>
     </config-file>
   </platform>
   
@@ -56,7 +57,6 @@
     <config-file target="config.xml" parent="/*">
       <feature name="Lyxpay">
         <param name="ios-package" value="Lyxpay"/>
-        <param name="onload" value="true"/>
       </feature>
       <preference name="WX_APP_ID" value="$WX_APP_ID" />
       <preference name="ALIPAY_APP_ID" value="$ALIPAY_APP_ID" />
