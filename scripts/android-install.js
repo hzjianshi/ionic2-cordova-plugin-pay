@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 module.exports = function (context) {
-    var path        = context.requireCordovaModule('path'),
-        fs          = context.requireCordovaModule('fs'),
-        shell       = context.requireCordovaModule('shelljs'),
+    var path        = require('path'),
+        fs          = require('fs'),
+        shell       = require('shelljs'),
         projectRoot = context.opts.projectRoot,
         plugins     = context.opts.plugins || [];
 
@@ -39,6 +39,7 @@ module.exports = function (context) {
         return ;
     }
 
+    var androidPlatformDir = path.join(context.opts.projectRoot,'platforms', 'android');
     var cordova7 = path.join(androidPlatformDir, 'app', 'src', 'main', 'res', 'xml', 'config.xml');
     var targetDir  = fs.existsSync(cordova7) ? path.join(projectRoot, "platforms", "android", "app", "src", "main", "java", packageName.replace(/\./g, path.sep), "wxapi") : path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep), "wxapi");
         targetFiles = ["WXPayEntryActivity.java"];
