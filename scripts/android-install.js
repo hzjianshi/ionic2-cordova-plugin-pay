@@ -39,7 +39,8 @@ module.exports = function (context) {
         return ;
     }
 
-    var targetDir  = path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep), "wxapi");
+    var cordova7 = path.join(androidPlatformDir, 'app', 'src', 'main', 'res', 'xml', 'config.xml');
+    var targetDir  = fs.existsSync(cordova7) ? path.join(projectRoot, "platforms", "android", "app", "src", "main", "java", packageName.replace(/\./g, path.sep), "wxapi") : path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep), "wxapi");
         targetFiles = ["WXPayEntryActivity.java"];
 
     if (['after_plugin_add', 'after_plugin_install'].indexOf(context.hook) === -1) {
